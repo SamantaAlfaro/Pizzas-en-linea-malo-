@@ -55,6 +55,10 @@ public class Usuario implements Serializable {
         return telefono;
     }
 
+    public boolean isRol() {
+        return rol;
+    }
+
     public void setApellidos(String apellidos) {
         this.apellidos = apellidos;
     }
