@@ -75,7 +75,7 @@ public class GestorIngredientes implements Serializable{
     
     
     //buscar un ingrediente (para sacar el precio)...
-    //NOTA: puedo devolver solo el precio
+    //NOTA: puedo devolver solo el precio o solo el nombre
     public JSONObject buscarIngrediente(String nombre) {
         MongoCollection<Document> colProductos = db.getCollection("ingredientes");
         BasicDBObject filtro = new BasicDBObject();

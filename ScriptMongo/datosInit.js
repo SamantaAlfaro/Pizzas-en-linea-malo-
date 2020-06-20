@@ -7,11 +7,11 @@ db.usuarios.insert({"nombre": "Georges", "apellidos":"Alfaro Salazar", "cedula":
 db.usuarios.insert({"nombre": "Carlos", "apellidos":"Zhou Zheng", "cedula": "504250413" ,"direccion": "Guanacaste", "contraseña": "chinito123", "telefono": "60712317","rol": false})
 
 db.createCollection('pizzas')
-db.pizzas.insert({"nombre": "Suprema", "ingredientes":[{"nombre": "pepperoni"}, {"nombre": "carne de res"},{"nombre": "carne de cerdo"},{"nombre": "chile dulce"},{"nombre": "hongos"},{"nombre": "cebolla"}],"precioBase": 2000.0})
-db.pizzas.insert({"nombre": "Jamon y queso", "ingredientes":[{"nombre": "jamon"}, {"nombre": "queso"}],"precioBase": 1500.0})
-db.pizzas.insert({"nombre": "Pepperoni", "ingredientes":[{"nombre": "pepperoni"}, {"nombre": "queso"}],"precioBase": 1500.0})
-db.pizzas.insert({"nombre": "Hawaiana", "ingredientes":[{"nombre": "jamon"}, {"nombre": "piña"}, {"nombre": "coco"}],"precioBase": 2000.0})
-db.pizzas.insert({"nombre": "Napolitana", "ingredientes":[{"nombre": "tomate en rodajas"}, {"nombre": "oregano"}],"precioBase": 2000.0})
+db.pizzas.insert({"nombre": "Suprema", "ingredientes":["pepperoni", "carne de res", "carne de cerdo","chile dulce","hongos","cebolla"],"precioBase": 2000.0})
+db.pizzas.insert({"nombre": "Jamon y queso", "ingredientes":["jamon", "queso"],"precioBase": 1500.0})
+db.pizzas.insert({"nombre": "Pepperoni", "ingredientes":["pepperoni","queso"],"precioBase": 1500.0})
+db.pizzas.insert({"nombre": "Hawaiana", "ingredientes":["jamon","piña", "coco"],"precioBase": 2000.0})
+db.pizzas.insert({"nombre": "Napolitana", "ingredientes":["tomate en rodajas", "oregano"],"precioBase": 2000.0})
 
 
 db.createCollection('ingredientes')

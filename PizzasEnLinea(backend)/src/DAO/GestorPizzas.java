@@ -5,28 +5,30 @@
  */
 package DAO;
 
-
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import modelo.Pizza;
 import org.bson.Document;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  *
  * @author Samanta
  */
-public class GestorPizzas implements Serializable{
-    
+public class GestorPizzas implements Serializable {
+
     private static GestorPizzas instancia = null;//para singleton
     private static MongoClient mongo = null;
     private String baseDatos;
     MongoDatabase db;
-    
+
     private GestorPizzas() {//para crear la conexion como un cliente de mongo
         try {
             mongo = MongoClients.create("mongodb://localhost:27017");
@@ -48,31 +50,50 @@ public class GestorPizzas implements Serializable{
         }
         return instancia;
     }
-    
-    
+
+    //insertar una pizza
+    public boolean insertarPizza(Pizza p) {
+        try {
+            MongoCollection<Document> colPizzas = db.getCollection("pizzas");
+            Document doc = new Document();
+            doc.append("nombre", p.getNombre()).append("precioBase", p.getPrecio()).append("ingredientes", p.getIngredientes());
+            colPizzas.insertOne(doc);
+            return true;
+        } catch (Exception ex) {
+            System.err.printf("Excepción: '%s'%n", ex.getMessage());
+        }
+        return false;
+    }
+
     //listar todas las pizzas disponibles
-    public List<Document> listarPizzas() {
+    public List<Pizza> listarPizzas() {
         MongoCollection<Document> colProductos = db.getCollection("pizzas");
         FindIterable<Document> cursor = colProductos.find();
-        Pizza pizza = null;
-        for (Document doc : cursor) {
-            try {
-                System.out.println(doc.toString());
-                pizza = new Pizza();
-            } catch (Exception ex) {
-                System.err.printf("Excepción: '%s'%n", ex.getMessage());
+        List<Pizza> listaPizzas = new ArrayList<>();
+        String nomPizza = null;
+        double precio = 0.0;
+        try {
+            for (Document doc : cursor) {
+                //System.out.println(doc.toString());
+                nomPizza = doc.get("nombre").toString();
+                precio = Double.valueOf(doc.get("precioBase").toString());
+                ArrayList<String> ingredAux = (ArrayList<String>) doc.get("ingredientes");
+                Pizza pizza = new Pizza(nomPizza, precio, ingredAux);
+                listaPizzas.add(pizza);
             }
+        } catch (Exception ex) {
+            System.err.printf("Excepción: '%s'%n", ex.getMessage());
         }
-        return null;
+        return listaPizzas;
     }
-    
-    
+
     public static void main(String[] args) {
         GestorPizzas gP = GestorPizzas.getInstance();
-        gP.listarPizzas();
-        
-
+        System.out.println(gP.listarPizzas());
+//        ArrayList<String> ingredientes = new ArrayList<>();
+//        ingredientes.add("queso");
+//        ingredientes.add("ajo");
+//        gP.insertarPizza(new Pizza("Cheese", 1500.0, ingredientes));
     }
-    
-    
+
 }

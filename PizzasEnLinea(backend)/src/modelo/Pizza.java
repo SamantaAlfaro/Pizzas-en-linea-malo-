@@ -13,28 +13,18 @@ import java.util.ArrayList;
  * @author Samanta
  */
 public class Pizza implements Serializable{
-    private String tamaño;
     private String nombre;
     private double precio; //fijo
     private ArrayList<String> ingredientes;
 
     public Pizza() {
-        this(null,null,0.0, null);
+        this(null,0.0, null);
     }
 
-    public Pizza(String tamaño, String nombre, double precio, ArrayList<String> ingredientes) {
-        this.tamaño = tamaño;
+    public Pizza(String nombre, double precio, ArrayList<String> ingredientes) {
         this.nombre = nombre;
         this.precio = precio;
         this.ingredientes = ingredientes;
-    }
-
-    public String getTamaño() {
-        return tamaño;
-    }
-
-    public void setTamaño(String tamaño) {
-        this.tamaño = tamaño;
     }
 
     public String getNombre() {
@@ -63,7 +53,7 @@ public class Pizza implements Serializable{
 
     @Override
     public String toString() {
-        return "Pizza{" + "tama\u00f1o=" + tamaño + ", nombre=" + nombre + ", precio=" + precio + ", ingredientes=\n" + ingredientes.toString() + '}';
+        return "{" + "nombre=" + nombre + ", precio=" + precio + ", ingredientes=" + ingredientes.toString() + "}\n";
     }
     
     
