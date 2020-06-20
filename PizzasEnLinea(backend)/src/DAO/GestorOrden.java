@@ -1,5 +1,6 @@
 package DAO;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
@@ -37,8 +38,8 @@ public class GestorOrden {
         }
         return instancia;
     }
-    
-        public void insertOrder(orden or) {
+
+    public void insertOrder(orden or) {
         MongoCollection<Document> collection = db.getCollection("ordenes");
 
         Document Order = new Document();
@@ -64,7 +65,6 @@ public class GestorOrden {
         return Orders;
     }
 
-    
     public Document getOrder(int num) {
         List<Document> orders = new ArrayList<Document>();
         Document order = new Document();
@@ -80,8 +80,21 @@ public class GestorOrden {
         return order;
     }
 
-//        public static void main(String[] args) {
-////        GestorOrden prueba = getInstance();
+    public void updateEstado(int num, int estado) {
+        MongoCollection<Document> collection = db.getCollection("ordenes");
+        BasicDBObject query = new BasicDBObject();
+        query.put("num orden", getOrder(num).get("num orden"));
+
+        BasicDBObject newDocument = new BasicDBObject();
+        newDocument.put("estado", estado);
+        BasicDBObject updateObject = new BasicDBObject();
+        updateObject.put("$set", newDocument);
+
+        collection.updateOne(query, updateObject);
+    }
+
+//    public static void main(String[] args) {
+//        GestorOrden prueba = getInstance();
 ////        ArrayList<Pizza> pizzas = new ArrayList<Pizza>();
 ////        ArrayList<String> extras = new ArrayList<String>();
 ////
@@ -94,8 +107,9 @@ public class GestorOrden {
 ////        System.out.println(prueba.getOrder(1).toString());
 ////        prueba.updateUser("304950273", "Heredia", "11111111");
 ////        prueba.updatePassword("304950273", "leo123");
+//        System.out.println(prueba.getOrder(1).toString());
+//        prueba.updateEstado(1, 3);
+//        System.out.println(prueba.getOrder(1).toString());
 //    }
-    
-    
 
 }
