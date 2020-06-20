@@ -1,14 +1,11 @@
 package DAO;
 
-import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import modelo.Pizza;
 import modelo.orden;
 import org.bson.Document;
 
@@ -83,21 +80,21 @@ public class GestorOrden {
         return order;
     }
 
-        public static void main(String[] args) {
-//        GestorOrden prueba = getInstance();
-//        ArrayList<Pizza> pizzas = new ArrayList<Pizza>();
-//        ArrayList<String> extras = new ArrayList<String>();
-//
-//        orden u = new orden("304950273", "Leonardo Baldares Gómez", 1, pizzas, extras, new Date(), 0,"contado",20000);
-//        prueba.insertOrder(u);
-//        orden u2 = new orden("304980727", "Melissa Fernandez Ramirez", 2, pizzas, extras, new Date(), 0,"tarjeta",100000);
-//        prueba.insertOrder(u2);
-//        
-//        System.out.println(prueba.listOrder().toString());
-//        System.out.println(prueba.getOrder(1).toString());
-//        prueba.updateUser("304950273", "Heredia", "11111111");
-//        prueba.updatePassword("304950273", "leo123");
-    }
+//        public static void main(String[] args) {
+////        GestorOrden prueba = getInstance();
+////        ArrayList<Pizza> pizzas = new ArrayList<Pizza>();
+////        ArrayList<String> extras = new ArrayList<String>();
+////
+////        orden u = new orden("304950273", "Leonardo Baldares Gómez", 1, pizzas, extras, new Date(), 0,"contado",20000);
+////        prueba.insertOrder(u);
+////        orden u2 = new orden("304980727", "Melissa Fernandez Ramirez", 2, pizzas, extras, new Date(), 0,"tarjeta",100000);
+////        prueba.insertOrder(u2);
+////        
+////        System.out.println(prueba.listOrder().toString());
+////        System.out.println(prueba.getOrder(1).toString());
+////        prueba.updateUser("304950273", "Heredia", "11111111");
+////        prueba.updatePassword("304950273", "leo123");
+//    }
     
     
 

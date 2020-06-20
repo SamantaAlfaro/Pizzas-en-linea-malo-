@@ -1,6 +1,5 @@
 package DAO;
 
-import static DAO.GestorUsuarios.getInstance;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
@@ -116,16 +115,16 @@ public class GestorComplementos {
         return false;
     }
 
-    public static void main(String[] args) {
-        GestorComplementos prueba = getInstance();
-
-//        System.out.println(prueba.listComplements().toString());
-//        System.out.println(prueba.getComplement("Pan de ajo").toString());
-//        System.out.println(prueba.deleteComplement("Pan de ajo"));
-//        System.out.println(prueba.insertComplemet(new complementos("Pan de ajo", 2000.0)));
-//        System.out.println(prueba.updateComplements("Pan de ajo", "precio", String.valueOf(1500.0)));
-//        System.out.println(prueba.updateComplements("Pan de ajo", "nombre", "Pan de ajitos"));
-
-
-    }
+//    public static void main(String[] args) {
+//        GestorComplementos prueba = getInstance();
+//
+////        System.out.println(prueba.listComplements().toString());
+////        System.out.println(prueba.getComplement("Pan de ajo").toString());
+////        System.out.println(prueba.deleteComplement("Pan de ajo"));
+////        System.out.println(prueba.insertComplemet(new complementos("Pan de ajo", 2000.0)));
+////        System.out.println(prueba.updateComplements("Pan de ajo", "precio", String.valueOf(1500.0)));
+////        System.out.println(prueba.updateComplements("Pan de ajo", "nombre", "Pan de ajitos"));
+//
+//
+//    }
 }
