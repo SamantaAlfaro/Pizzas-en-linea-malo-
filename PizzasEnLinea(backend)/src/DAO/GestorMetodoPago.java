@@ -5,8 +5,6 @@
  */
 package DAO;
 
-import Utiles.JSONUtils;
-import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
@@ -15,9 +13,7 @@ import com.mongodb.client.MongoDatabase;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import modelo.Ingredientes;
 import org.bson.Document;
-import org.json.JSONObject;
 
 /**
  *
@@ -70,9 +66,9 @@ public class GestorMetodoPago implements Serializable {
     }
     
     
-    public static void main(String[] args) {
-        GestorMetodoPago gMP = GestorMetodoPago.getInstance();
-        System.out.println(gMP.listarMetodosPago());
-    }
+//    public static void main(String[] args) {
+//        GestorMetodoPago gMP = GestorMetodoPago.getInstance();
+//        System.out.println(gMP.listarMetodosPago());
+//    }
 
 }

@@ -5,7 +5,6 @@
  */
 package DAO;
 
-
 import Utiles.JSONUtils;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
@@ -13,6 +12,8 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import static com.mongodb.client.model.Filters.eq;
+import com.mongodb.client.result.UpdateResult;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,13 +25,13 @@ import org.json.JSONObject;
  *
  * @author Samanta
  */
-public class GestorIngredientes implements Serializable{
-    
+public class GestorIngredientes implements Serializable {
+
     private static GestorIngredientes instancia = null;//para singleton
     private static MongoClient mongo = null;
     private String baseDatos;
     MongoDatabase db;
-    
+
     private GestorIngredientes() {//para crear la conexion como un cliente de mongo
         try {
             mongo = MongoClients.create("mongodb://localhost:27017");
@@ -52,15 +53,60 @@ public class GestorIngredientes implements Serializable{
         }
         return instancia;
     }
-    
+
+    public boolean insertIngredientes(Ingredientes i) {
+        try {
+            MongoCollection<Document> collection = db.getCollection("ingredientes");
+            Document doc = new Document();
+            doc.append("nombre", i.getNombre()).append("precio", i.getPrecio());
+            collection.insertOne(doc);
+            return true;
+        } catch (Exception ex) {
+            System.err.printf("Excepción: '%s'%n", ex.getMessage());
+        }
+        return false;
+    }
+
+    public boolean deleteIngrediente(String nombre) {
+        try {
+            MongoCollection<Document> colIngrediente = db.getCollection("ingredientes");
+            colIngrediente.deleteOne(eq("nombre", nombre));
+            return true;
+        } catch (Exception ex) {
+            System.err.printf("Excepción: '%s'%n", ex.getMessage());
+        }
+        return false;
+    }
+
+    public boolean updateIngrediente(String nombre, String campo, String value) {
+        try {
+            MongoCollection<Document> collection = db.getCollection("ingredientes");
+
+            BasicDBObject filtro = new BasicDBObject();
+            filtro.put("nombre", nombre);
+
+            BasicDBObject campos = new BasicDBObject();
+            campos.append(campo, value);
+            BasicDBObject updateQuery = new BasicDBObject().append("$set", campos);
+            UpdateResult resultTotal = collection.updateOne(filtro, updateQuery);
+            if (resultTotal.getMatchedCount() == 0) {
+                System.out.println("nop");
+            }
+            return true;
+        } catch (Exception ex) {
+            System.err.printf("Excepción: '%s'%n", ex.getMessage());
+        }
+        return false;
+    }
+
     //listar los ingredientes actuales
     public List<Ingredientes> listarIngredientes() {
         List<Ingredientes> ingredientes = new ArrayList<>();
         Ingredientes ing = null;
         try {
-            MongoCollection<Document> colIngredientes= db.getCollection("ingredientes");
+            MongoCollection<Document> colIngredientes = db.getCollection("ingredientes");
             FindIterable<Document> cursor = colIngredientes.find();
-            for (Document d: cursor){
+            for (Document d : cursor) {
                 System.out.println(d.toString());
                 String nombre = d.get("nombre").toString();
                 double precio = Double.valueOf(d.get("precio").toString());
@@ -72,8 +118,7 @@ public class GestorIngredientes implements Serializable{
         }
         return ingredientes;
     }
-    
-    
+
     //buscar un ingrediente (para sacar el precio)...
     //NOTA: puedo devolver solo el precio o solo el nombre
     public JSONObject buscarIngrediente(String nombre) {
@@ -92,14 +137,18 @@ public class GestorIngredientes implements Serializable{
         }
         return ingred;
     }
-    
-    
-    
-    public static void main(String[] args) {
-        //GestorIngredientes gI = GestorIngredientes.getInstance();
-        //System.out.println(gI.listarIngredientes().toString());
-        //System.out.println(gI.buscarIngrediente("piña"));
-        
 
-    }
+//    public static void main(String[] args) {
+//        GestorIngredientes prueba = getInstance();
+//        //System.out.println(gI.listarIngredientes().toString());
+//        //System.out.println(gI.buscarIngrediente("piña"));
+//
+////        Ingredientes b = new Ingredientes(2000,"zarza");
+////        prueba.insertIngredientes(b);
+////        System.out.println(prueba.buscarIngrediente("zarza").toString());
+////        prueba.updateIngrediente("zarza", "precio", String.valueOf(1500));
+////        System.out.println(prueba.buscarIngrediente("zarza").toString());
+////        prueba.deleteIngrediente("zarza");
+////        System.out.println(prueba.buscarIngrediente("zarza").toString());
+//    }
 }
