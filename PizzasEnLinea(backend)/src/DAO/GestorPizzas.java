@@ -10,13 +10,12 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import static com.mongodb.client.model.Filters.eq;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import modelo.Pizza;
 import org.bson.Document;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 /**
  *
@@ -87,13 +86,30 @@ public class GestorPizzas implements Serializable {
         return listaPizzas;
     }
 
+    //eliminar una pizza
+    public boolean eliminarPizza(String nombre) {
+        try {
+            MongoCollection<Document> colPizzas = db.getCollection("pizzas");
+            colPizzas.deleteOne(eq("nombre", nombre));
+            return true;
+        } catch (Exception ex) {
+            System.err.printf("Excepción: '%s'%n", ex.getMessage());
+        }
+        return false;
+    }
+    
+    
+    
+
+    //actualizar una pizza
     public static void main(String[] args) {
         GestorPizzas gP = GestorPizzas.getInstance();
-        System.out.println(gP.listarPizzas());
+        //System.out.println(gP.listarPizzas());
 //        ArrayList<String> ingredientes = new ArrayList<>();
 //        ingredientes.add("queso");
 //        ingredientes.add("ajo");
 //        gP.insertarPizza(new Pizza("Cheese", 1500.0, ingredientes));
+//        System.out.println(gP.eliminarPizza("Cheese"));
     }
 
 }

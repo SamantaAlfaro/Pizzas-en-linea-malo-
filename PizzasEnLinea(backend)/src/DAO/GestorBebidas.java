@@ -5,6 +5,7 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import static com.mongodb.client.model.Filters.eq;
 import java.util.ArrayList;
 import java.util.List;
 import org.bson.Document;
@@ -61,12 +62,27 @@ public class GestorBebidas {
         }
         return drinks;
     }
+    
+    //eliminar una bebida
+    public boolean deleteDrink(String nombre) {
+        try {
+            MongoCollection<Document> colPizzas = db.getCollection("bebidas");
+            colPizzas.deleteOne(eq("nombre", nombre));
+            return true;
+        } catch (Exception ex) {
+            System.err.printf("Excepción: '%s'%n", ex.getMessage());
+        }
+        return false;
+    }
+    
 
     public static void main(String[] args) {
         GestorBebidas prueba = getInstance();
 
 //        System.out.println(prueba.listDrinks().toString());
 //        System.out.println(prueba.getDrink("Coca-cola").toString());
+//        System.out.println(prueba.deleteDrink("Coca-cola"));
+
     }
 
 }
