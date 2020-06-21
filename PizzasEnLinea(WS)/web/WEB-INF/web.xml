@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <listener>
+        <listener-class>com.sun.xml.ws.transport.http.servlet.WSServletContextListener</listener-class>
+    </listener>
     <servlet>
-        <servlet-name>pruebaServlet</servlet-name>
-        <servlet-class>servlets.pruebaServlet</servlet-class>
+        <servlet-name>prueba</servlet-name>
+        <servlet-class>servlet.prueba</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>servicioPrueba</servlet-name>
+        <servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
-        <servlet-name>pruebaServlet</servlet-name>
-        <url-pattern>/pruebaServlet</url-pattern>
+        <servlet-name>prueba</servlet-name>
+        <url-pattern>/prueba</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>servicioPrueba</servlet-name>
+        <url-pattern>/servicioPrueba</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
