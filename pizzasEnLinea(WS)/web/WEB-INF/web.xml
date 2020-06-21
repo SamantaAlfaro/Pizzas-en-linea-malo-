@@ -8,7 +8,7 @@
         <servlet-class>servlets.NewServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ServicioBebida</servlet-name>
+        <servlet-name>ServicioBasico</servlet-name>
         <servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
@@ -17,8 +17,8 @@
         <url-pattern>/NewServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ServicioBebida</servlet-name>
-        <url-pattern>/ServicioBebida</url-pattern>
+        <servlet-name>ServicioBasico</servlet-name>
+        <url-pattern>/ServicioBasico</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
