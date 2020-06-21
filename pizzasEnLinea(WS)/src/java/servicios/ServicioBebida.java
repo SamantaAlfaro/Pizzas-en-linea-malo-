@@ -13,8 +13,8 @@ import javax.jws.WebParam;
  *
  * @author leoba
  */
-@WebService(serviceName = "prueba")
-public class prueba {
+@WebService(serviceName = "ServicioBebida")
+public class ServicioBebida {
 
     /**
      * This is a sample web service operation
