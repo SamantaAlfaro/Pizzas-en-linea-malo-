@@ -8,11 +8,6 @@
         <servlet-class>servlets.NewServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ServicioBasico</servlet-name>
-        <servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    <servlet>
         <servlet-name>ServicioOrden</servlet-name>
         <servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
@@ -50,10 +45,6 @@
     <servlet-mapping>
         <servlet-name>NewServlet</servlet-name>
         <url-pattern>/NewServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServicioBasico</servlet-name>
-        <url-pattern>/ServicioBasico</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServicioOrden</servlet-name>
