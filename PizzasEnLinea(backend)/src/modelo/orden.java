@@ -3,6 +3,7 @@ package modelo;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class orden implements Serializable {
 
@@ -38,6 +39,10 @@ public class orden implements Serializable {
         this.estado = estado;
         this.metodo_pago = metodo_pago;
         this.precio = precio;
+    }
+
+    public orden(String Pcedula, String PnombreCompleto, int numOrden, List<Pizza> pizzas, List<String> extras, String Pfecha, String Pestado, String Pmetodo_pago, double precio) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public String getCedula() {
@@ -114,6 +119,6 @@ public class orden implements Serializable {
 
     @Override
     public String toString() {
-        return "orden{" + "cedula=" + cedula + ", nombreCompleto=" + nombreCompleto + ", numOrden=" + numOrden + ", pizzas=" + pizzas.toString() + ", extras=" + extras.toString() + ", fecha=" + fecha + ", estado=" + estado + ", metodo_pago=" + metodo_pago + ", precio=" + precio + '}';
+        return "orden{" + "cedula=" + cedula + ", nombreCompleto=" + nombreCompleto + ", numOrden=" + numOrden + ", pizzas=" + pizzas.toString() + ", extras=" + extras.toString() + ", fecha=" + fecha + ", estado=" + estado + ", metodo_pago=" + metodo_pago + ", precio=" + precio + "}\n\n";
     }
 }

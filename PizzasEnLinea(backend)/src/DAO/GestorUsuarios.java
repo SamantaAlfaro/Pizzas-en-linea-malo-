@@ -55,25 +55,44 @@ public class GestorUsuarios implements Serializable {
         collection.insertOne(User);
     }
 
-    public List<Document> listUser() {
+    public ArrayList<Usuario> listUser() {
         List<Document> users = new ArrayList<Document>();
+        ArrayList<Usuario> usuarios = new ArrayList<>();
         MongoCollection<Document> collection = db.getCollection("usuarios");
 
         users = collection.find().projection(new Document()).into(new ArrayList<Document>());
+        for (Document d : users) {
+            usuarios.add(new Usuario(
+                    d.getString("nombre"), 
+                    d.getString("apellidos"),
+                    d.getString("cedula"),
+                    d.getString("direccion"),
+                    d.getString("contraseña"),
+                    d.getString("telefono"),
+                    d.getBoolean("rol")
+            ));
+        }
 
-        return users;
+        return usuarios;
     }
 
-    public Document getUser(String ced) {
+    public Usuario getUser(String ced) {
         List<Document> users = new ArrayList<Document>();
-        Document user = new Document();
+        Usuario user = new Usuario();
 
         MongoCollection<Document> collection = db.getCollection("usuarios");
         users = collection.find().projection(new Document()).into(new ArrayList<Document>());
 
         for (Document d : users) {
             if (d.get("cedula").equals(ced)) {
-                return user = d;
+                    user.setNombre(d.getString("nombre")); 
+                    user.setApellidos(d.getString("apellidos"));
+                    user.setCedula(d.getString("cedula"));
+                    user.setDireccion(d.getString("direccion"));
+                    user.setContraseña(d.getString("contraseña"));
+                    user.setTelefono(d.getString("telefono"));
+                    user.setRol(d.getBoolean("rol"));
+                return user;
             }
         }
         return user;
@@ -82,7 +101,7 @@ public class GestorUsuarios implements Serializable {
     public void updateUser(String cedula, String direccion, String telefono) {
         MongoCollection<Document> collection = db.getCollection("usuarios");
         BasicDBObject query = new BasicDBObject();
-        query.put("cedula", (String) getUser(cedula).get("cedula"));
+        query.put("cedula", getUser(cedula).getCedula());
 
         BasicDBObject newDocument = new BasicDBObject();
         newDocument.put("direccion", direccion);
@@ -96,7 +115,7 @@ public class GestorUsuarios implements Serializable {
     public void updatePassword(String cedula, String newPass) {
         MongoCollection<Document> collection = db.getCollection("usuarios");
         BasicDBObject query = new BasicDBObject();
-        query.put("cedula", (String) getUser(cedula).get("cedula"));
+        query.put("cedula", getUser(cedula).getCedula());
 
         BasicDBObject newDocument = new BasicDBObject();
         newDocument.put("contraseña", newPass);
@@ -108,13 +127,15 @@ public class GestorUsuarios implements Serializable {
 
 //    public static void main(String[] args) {
 //        GestorUsuarios prueba = getInstance();
+//        
 //
-////        Usuario u = new Usuario("Leonardo", "Baldares Gómez", "304950273", "Cartago", "123", "86575093", true);
-////        prueba.insertUser(u);
-////        
-////        System.out.println(prueba.listUser().toString());
-////        System.out.println(prueba.getUser("105710421").toString());
-////        prueba.updateUser("304950273", "Heredia", "11111111");
-////        prueba.updatePassword("304950273", "leo123");
+////
+//        Usuario u = new Usuario("Leonardo", "Baldares Gómez", "304950273", "Cartago", "123", "86575093", true);
+//        prueba.insertUser(u);
+//////        
+//        System.out.println(prueba.listUser().toString());
+//        System.out.println(prueba.getUser("105710421").toString());
+//        prueba.updateUser("304950273", "Heredia", "11111111");
+//        prueba.updatePassword("304950273", "leo123");
 //    }
 }

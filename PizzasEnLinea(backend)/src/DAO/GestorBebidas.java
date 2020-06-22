@@ -86,35 +86,41 @@ public class GestorBebidas {
         return false;
     }
 
-    public List<Document> listDrinks() {
-        List<Document> users = new ArrayList<Document>();
+    public ArrayList<bebidas> listDrinks() {
+        List<Document> drinks = new ArrayList<Document>();
+        ArrayList<bebidas> bebidas = new ArrayList<>();
         MongoCollection<Document> collection = db.getCollection("bebidas");
-
-        users = collection.find().projection(new Document()).into(new ArrayList<Document>());
-
-        return users;
+        drinks = collection.find().projection(new Document()).into(new ArrayList<Document>());
+        
+        for(Document d : drinks){
+            bebidas.add(new bebidas((String) d.get("nombre"), (double) d.get("precio"))); 
+        }
+        
+        return bebidas;
     }
 
-    public Document getDrink(String nom) {
-        List<Document> users = new ArrayList<Document>();
-        Document drinks = new Document();
+    public bebidas getDrink(String nom) {
+        List<Document> drinks = new ArrayList<Document>();
+        bebidas bebidas = new bebidas();
 
         MongoCollection<Document> collection = db.getCollection("bebidas");
-        users = collection.find().projection(new Document()).into(new ArrayList<Document>());
+        drinks = collection.find().projection(new Document()).into(new ArrayList<Document>());
 
-        for (Document d : users) {
+        for (Document d : drinks) {
             if (d.get("nombre").equals(nom)) {
-                return drinks = d;
+                bebidas.setNombre((String)d.get("nombre"));
+                bebidas.setPrecio((double)d.get("precio"));
+                return bebidas;
             }
         }
-        return drinks;
+        return bebidas;
     }
-
+//
 //    public static void main(String[] args) {
 //        GestorBebidas prueba = getInstance();
-//
-////        System.out.println(prueba.listDrinks().toString());
-////        System.out.println(prueba.getDrink("Coca-cola").toString());
+//////
+//        System.out.println(prueba.listDrinks().toString());
+//        System.out.println(prueba.getDrink("Coca-cola").toString());
 ////        System.out.println(prueba.deleteDrink("Coca-cola"));
 ////        bebidas b = new bebidas("zarza", 2000);
 ////        prueba.insertDrink(b);

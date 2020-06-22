@@ -55,31 +55,36 @@ public class GestorComplementos {
         return false;
     }
 
-    public List<Document> listComplements() {
-        List<Document> users = new ArrayList<Document>();
+    public ArrayList<complementos> listComplements() {
+        List<Document> complements = new ArrayList<Document>();
+        ArrayList<complementos> complementos = new ArrayList<>();
         MongoCollection<Document> collection = db.getCollection("complementos");
+        complements = collection.find().projection(new Document()).into(new ArrayList<Document>());
 
-        users = collection.find().projection(new Document()).into(new ArrayList<Document>());
+        for (Document d : complements) {
+            complementos.add(new complementos((String) d.get("nombre"), (double) d.get("precio")));
+        }
 
-        return users;
+        return complementos;
     }
 
-    public Document getComplement(String nom) {
-        List<Document> users = new ArrayList<Document>();
-        Document complements = new Document();
-
+    public complementos getComplement(String nom) {
+        List<Document> complements = new ArrayList<Document>();
+        complementos complemento = new complementos();
         MongoCollection<Document> collection = db.getCollection("complementos");
-        users = collection.find().projection(new Document()).into(new ArrayList<Document>());
+        complements = collection.find().projection(new Document()).into(new ArrayList<Document>());
 
-        for (Document d : users) {
+        for (Document d : complements) {
             if (d.get("nombre").equals(nom)) {
-                return complements = d;
+                complemento.setNombre((String) d.get("nombre"));
+                complemento.setPrecio((double) d.get("precio"));
+                return complemento;
             }
         }
-        return complements;
+        return complemento;
     }
 
-    //eliminar una bebida
+    //eliminar una complemento
     public boolean deleteComplement(String nombre) {
         try {
             MongoCollection<Document> colPizzas = db.getCollection("complementos");
@@ -118,8 +123,8 @@ public class GestorComplementos {
 //    public static void main(String[] args) {
 //        GestorComplementos prueba = getInstance();
 //
-////        System.out.println(prueba.listComplements().toString());
-////        System.out.println(prueba.getComplement("Pan de ajo").toString());
+//        System.out.println(prueba.listComplements().toString());
+//        System.out.println(prueba.getComplement("Pan de ajo").toString());
 ////        System.out.println(prueba.deleteComplement("Pan de ajo"));
 ////        System.out.println(prueba.insertComplemet(new complementos("Pan de ajo", 2000.0)));
 ////        System.out.println(prueba.updateComplements("Pan de ajo", "precio", String.valueOf(1500.0)));

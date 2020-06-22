@@ -121,7 +121,7 @@ public class GestorIngredientes implements Serializable {
 
     //buscar un ingrediente (para sacar el precio)...
     //NOTA: puedo devolver solo el precio o solo el nombre
-    public JSONObject buscarIngrediente(String nombre) {
+    public String buscarIngrediente(String nombre) {
         MongoCollection<Document> colProductos = db.getCollection("ingredientes");
         BasicDBObject filtro = new BasicDBObject();
         filtro.put("nombre", nombre);
@@ -135,13 +135,13 @@ public class GestorIngredientes implements Serializable {
                 System.err.printf("Excepción: '%s'%n", ex.getMessage());
             }
         }
-        return ingred;
+        return ingred.toString();
     }
 
 //    public static void main(String[] args) {
 //        GestorIngredientes prueba = getInstance();
 //        //System.out.println(gI.listarIngredientes().toString());
-//        //System.out.println(gI.buscarIngrediente("piña"));
+//        System.out.println(prueba.buscarIngrediente("piña"));
 //
 ////        Ingredientes b = new Ingredientes(2000,"zarza");
 ////        prueba.insertIngredientes(b);
