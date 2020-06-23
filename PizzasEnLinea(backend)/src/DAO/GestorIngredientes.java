@@ -100,23 +100,26 @@ public class GestorIngredientes implements Serializable {
     }
 
     //listar los ingredientes actuales
-    public List<Ingredientes> listarIngredientes() {
-        List<Ingredientes> ingredientes = new ArrayList<>();
+    public String listarIngredientes() {
+        List<Document> listaIngredientes = new ArrayList<>();
+        Document Ingredientes = new Document();
         Ingredientes ing = null;
         try {
             MongoCollection<Document> colIngredientes = db.getCollection("ingredientes");
             FindIterable<Document> cursor = colIngredientes.find();
             for (Document d : cursor) {
-                System.out.println(d.toString());
-                String nombre = d.get("nombre").toString();
-                double precio = Double.valueOf(d.get("precio").toString());
-                ing = new Ingredientes(precio, nombre);
-                ingredientes.add(ing);
+//                System.out.println(d.toString());
+//                String nombre =.toString();
+//                double precio = Double.valueOf(d.get("precio").toString());
+//                ing = new Ingredientes(precio, nombre);
+                listaIngredientes.add(new Document().append("nombre",  d.getString("nombre")).append("precio", d.getDouble("precio")));
             }
         } catch (Exception ex) {
             System.err.printf("Excepción: '%s'%n", ex.getMessage());
         }
-        return ingredientes;
+        
+        Ingredientes.append("Lista-Ingredientes", listaIngredientes);
+        return Ingredientes.toJson();
     }
 
     //buscar un ingrediente (para sacar el precio)...
@@ -140,7 +143,7 @@ public class GestorIngredientes implements Serializable {
 
 //    public static void main(String[] args) {
 //        GestorIngredientes prueba = getInstance();
-//        //System.out.println(gI.listarIngredientes().toString());
+//        System.out.println(prueba.listarIngredientes());
 //        System.out.println(prueba.buscarIngrediente("piña"));
 //
 ////        Ingredientes b = new Ingredientes(2000,"zarza");

@@ -7,12 +7,13 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import static com.mongodb.client.model.Filters.eq;
 import com.mongodb.client.result.UpdateResult;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import modelo.bebidas;
 import org.bson.Document;
 
-public class GestorBebidas {
+public class GestorBebidas implements Serializable{
 
     private static GestorBebidas instancia = null;
     private static MongoClient mongo = null;
@@ -86,9 +87,9 @@ public class GestorBebidas {
         return false;
     }
 
-    public ArrayList<bebidas> listDrinks() {
+    public List<bebidas> listDrinks() {
         List<Document> drinks = new ArrayList<Document>();
-        ArrayList<bebidas> bebidas = new ArrayList<>();
+        List<bebidas> bebidas = new ArrayList<>();
         MongoCollection<Document> collection = db.getCollection("bebidas");
         drinks = collection.find().projection(new Document()).into(new ArrayList<Document>());
         

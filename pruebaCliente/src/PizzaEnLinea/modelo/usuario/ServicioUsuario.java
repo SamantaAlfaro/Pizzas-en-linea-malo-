@@ -47,7 +47,7 @@ public interface ServicioUsuario {
      * @param telefono
      * @param nombre
      * @param rol
-     * @param contrase�a
+     * @param contraseña
      * @return
      *     returns java.lang.String
      */

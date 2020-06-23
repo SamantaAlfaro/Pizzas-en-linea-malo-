@@ -34,7 +34,5 @@ public class bebidas implements Serializable {
     @Override
     public String toString() {
         return "bebidas{" + "nombre=" + nombre + ", precio=" + precio + '}';
-    }
-    
-    
+    }    
 }

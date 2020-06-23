@@ -42,7 +42,7 @@ public class Ingredientes implements Serializable{
 
     @Override
     public String toString() {
-        return "Ingredientes{" + "precio=" + precio + ", nombre=" + nombre + '}';
+        return "{\"precio\":" + precio + ", \"nombre\":\"" + nombre + "\"}";
     }   
     
 }

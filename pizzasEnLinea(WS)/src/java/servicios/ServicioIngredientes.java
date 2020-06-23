@@ -67,7 +67,7 @@ public class ServicioIngredientes {
     @WebMethod(operationName = "listarIngredientes")
     public String listarIngredientes() {
         try {
-            return GestorIngredientes.getInstance().listarIngredientes().toString();
+            return GestorIngredientes.getInstance().listarIngredientes();
         } catch (NullPointerException | NumberFormatException ex) {
             System.err.printf("Excepción: '%s'%n", ex.getMessage());
         }
