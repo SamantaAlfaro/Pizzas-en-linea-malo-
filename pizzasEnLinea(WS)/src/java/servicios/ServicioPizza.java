@@ -86,7 +86,7 @@ public class ServicioPizza {
     @WebMethod(operationName = "buscarPizza")
     public String buscarPizza(@WebParam(name = "nombre") String Pnombre) {
         try {
-            return GestorPizzas.getInstance().buscarPizza(Pnombre).toString();
+            return GestorPizzas.getInstance().buscarPizza(Pnombre);
         } catch (NullPointerException | NumberFormatException ex) {
             System.err.printf("Excepción: '%s'%n", ex.getMessage());
         }
@@ -96,7 +96,7 @@ public class ServicioPizza {
     @WebMethod(operationName = "listarPizzas")
     public String listarPizzas() {
         try {
-            return GestorPizzas.getInstance().listarPizzas().toString();
+            return GestorPizzas.getInstance().listarPizzas();
         } catch (NullPointerException | NumberFormatException ex) {
             System.err.printf("Excepción: '%s'%n", ex.getMessage());
         }

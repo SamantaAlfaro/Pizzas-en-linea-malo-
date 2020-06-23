@@ -89,6 +89,6 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "{\"nombre\":" + nombre + ", \"apellidos\":" + apellidos + " ,\"cedula\":" + cedula + " ,\"direccion\":" + direccion + " ,\"contraseña\":" + contraseña + " ,\"telefono\":" + telefono + " ,\"rol\":" + rol + '}';
+        return "{\"nombre\":\"" + nombre + "\",\"apellidos\":\"" + apellidos + "\",\"cedula\":\"" + cedula + "\",\"direccion\":\"" + direccion + "\",\"contraseña\":\"" + contraseña + "\",\"telefono\":\"" + telefono + "\",\"rol\":" + rol + '}';
     }    
 }

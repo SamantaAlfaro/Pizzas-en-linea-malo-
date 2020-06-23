@@ -41,6 +41,24 @@ public interface ServicioUsuario {
 
     /**
      * 
+     * @param cedula
+     * @param newPass
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "updatePassword", targetNamespace = "http://servicios/", className = "PizzaEnLinea.modelo.usuario.UpdatePassword")
+    @ResponseWrapper(localName = "updatePasswordResponse", targetNamespace = "http://servicios/", className = "PizzaEnLinea.modelo.usuario.UpdatePasswordResponse")
+    @Action(input = "http://servicios/ServicioUsuario/updatePasswordRequest", output = "http://servicios/ServicioUsuario/updatePasswordResponse")
+    public String updatePassword(
+        @WebParam(name = "cedula", targetNamespace = "")
+        String cedula,
+        @WebParam(name = "newPass", targetNamespace = "")
+        String newPass);
+
+    /**
+     * 
      * @param apellidos
      * @param cedula
      * @param direccion
@@ -74,6 +92,18 @@ public interface ServicioUsuario {
 
     /**
      * 
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "listUser", targetNamespace = "http://servicios/", className = "PizzaEnLinea.modelo.usuario.ListUser")
+    @ResponseWrapper(localName = "listUserResponse", targetNamespace = "http://servicios/", className = "PizzaEnLinea.modelo.usuario.ListUserResponse")
+    @Action(input = "http://servicios/ServicioUsuario/listUserRequest", output = "http://servicios/ServicioUsuario/listUserResponse")
+    public String listUser();
+
+    /**
+     * 
      * @param cedula
      * @param direccion
      * @param telefono
@@ -92,35 +122,5 @@ public interface ServicioUsuario {
         String direccion,
         @WebParam(name = "telefono", targetNamespace = "")
         String telefono);
-
-    /**
-     * 
-     * @param cedula
-     * @param newPass
-     * @return
-     *     returns java.lang.String
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "updatePassword", targetNamespace = "http://servicios/", className = "PizzaEnLinea.modelo.usuario.UpdatePassword")
-    @ResponseWrapper(localName = "updatePasswordResponse", targetNamespace = "http://servicios/", className = "PizzaEnLinea.modelo.usuario.UpdatePasswordResponse")
-    @Action(input = "http://servicios/ServicioUsuario/updatePasswordRequest", output = "http://servicios/ServicioUsuario/updatePasswordResponse")
-    public String updatePassword(
-        @WebParam(name = "cedula", targetNamespace = "")
-        String cedula,
-        @WebParam(name = "newPass", targetNamespace = "")
-        String newPass);
-
-    /**
-     * 
-     * @return
-     *     returns java.lang.String
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "listUser", targetNamespace = "http://servicios/", className = "PizzaEnLinea.modelo.usuario.ListUser")
-    @ResponseWrapper(localName = "listUserResponse", targetNamespace = "http://servicios/", className = "PizzaEnLinea.modelo.usuario.ListUserResponse")
-    @Action(input = "http://servicios/ServicioUsuario/listUserRequest", output = "http://servicios/ServicioUsuario/listUserResponse")
-    public String listUser();
 
 }

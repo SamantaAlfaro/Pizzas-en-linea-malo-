@@ -67,9 +67,9 @@ public class GestorMetodoPago implements Serializable {
     }
     
     
-    public static void main(String[] args) {
-        GestorMetodoPago gMP = GestorMetodoPago.getInstance();
-        System.out.println(gMP.listarMetodosPago());
-    }
+//    public static void main(String[] args) {
+//        GestorMetodoPago gMP = GestorMetodoPago.getInstance();
+//        System.out.println(gMP.listarMetodosPago());
+//    }
 
 }

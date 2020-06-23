@@ -22,7 +22,7 @@ public class ServicioComplemento {
     @WebMethod(operationName = "listComplements")
     public String listComplements() {
         try {
-            return GestorComplementos.getInstance().listComplements().toString();
+            return GestorComplementos.getInstance().listComplements();
         } catch (NullPointerException | NumberFormatException ex) {
             System.err.printf("Excepción: '%s'%n", ex.getMessage());
         }
@@ -77,7 +77,7 @@ public class ServicioComplemento {
     @WebMethod(operationName = "getComplement")
     public String getComplement(@WebParam(name = "nombre") String Pnombre) {
         try {
-            return GestorComplementos.getInstance().getComplement(Pnombre).toString();
+            return GestorComplementos.getInstance().getComplement(Pnombre);
         } catch (NullPointerException | NumberFormatException ex) {
             System.err.printf("Excepción: '%s'%n", ex.getMessage());
         }

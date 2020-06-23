@@ -127,13 +127,14 @@ public class GestorUsuarios implements Serializable {
 
 //    public static void main(String[] args) {
 //        GestorUsuarios prueba = getInstance();
-//        
+////        
 //
 ////
 //        Usuario u = new Usuario("Leonardo", "Baldares Gómez", "304950273", "Cartago", "123", "86575093", true);
 //        prueba.insertUser(u);
 //////        
 //        System.out.println(prueba.listUser());
+//        System.out.println(prueba.getUser("105710421"));
 //        System.out.println(prueba.getUser("304950273"));
 //        prueba.updateUser("304950273", "Heredia", "11111111");
 //        prueba.updatePassword("304950273", "leo123");

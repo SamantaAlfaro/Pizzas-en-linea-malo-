@@ -26,18 +26,6 @@ public interface ServicioOrden {
 
     /**
      * 
-     * @return
-     *     returns java.lang.String
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "listOrder", targetNamespace = "http://servicios/", className = "PizzaEnLinea.modelo.orden.ListOrder")
-    @ResponseWrapper(localName = "listOrderResponse", targetNamespace = "http://servicios/", className = "PizzaEnLinea.modelo.orden.ListOrderResponse")
-    @Action(input = "http://servicios/ServicioOrden/listOrderRequest", output = "http://servicios/ServicioOrden/listOrderResponse")
-    public String listOrder();
-
-    /**
-     * 
      * @param numero
      * @return
      *     returns java.lang.String
@@ -89,6 +77,18 @@ public interface ServicioOrden {
         String metodoPago,
         @WebParam(name = "precio", targetNamespace = "")
         String precio);
+
+    /**
+     * 
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "listOrder", targetNamespace = "http://servicios/", className = "PizzaEnLinea.modelo.orden.ListOrder")
+    @ResponseWrapper(localName = "listOrderResponse", targetNamespace = "http://servicios/", className = "PizzaEnLinea.modelo.orden.ListOrderResponse")
+    @Action(input = "http://servicios/ServicioOrden/listOrderRequest", output = "http://servicios/ServicioOrden/listOrderResponse")
+    public String listOrder();
 
     /**
      * 

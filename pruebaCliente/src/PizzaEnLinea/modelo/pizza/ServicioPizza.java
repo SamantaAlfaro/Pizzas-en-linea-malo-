@@ -26,21 +26,6 @@ public interface ServicioPizza {
 
     /**
      * 
-     * @param nombre
-     * @return
-     *     returns java.lang.String
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "buscarPizza", targetNamespace = "http://servicios/", className = "PizzaEnLinea.modelo.pizza.BuscarPizza")
-    @ResponseWrapper(localName = "buscarPizzaResponse", targetNamespace = "http://servicios/", className = "PizzaEnLinea.modelo.pizza.BuscarPizzaResponse")
-    @Action(input = "http://servicios/ServicioPizza/buscarPizzaRequest", output = "http://servicios/ServicioPizza/buscarPizzaResponse")
-    public String buscarPizza(
-        @WebParam(name = "nombre", targetNamespace = "")
-        String nombre);
-
-    /**
-     * 
      * @param precio
      * @param ingredientes
      * @param nombre
@@ -59,6 +44,36 @@ public interface ServicioPizza {
         String precio,
         @WebParam(name = "ingredientes", targetNamespace = "")
         String ingredientes);
+
+    /**
+     * 
+     * @param nombre
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "buscarPizza", targetNamespace = "http://servicios/", className = "PizzaEnLinea.modelo.pizza.BuscarPizza")
+    @ResponseWrapper(localName = "buscarPizzaResponse", targetNamespace = "http://servicios/", className = "PizzaEnLinea.modelo.pizza.BuscarPizzaResponse")
+    @Action(input = "http://servicios/ServicioPizza/buscarPizzaRequest", output = "http://servicios/ServicioPizza/buscarPizzaResponse")
+    public String buscarPizza(
+        @WebParam(name = "nombre", targetNamespace = "")
+        String nombre);
+
+    /**
+     * 
+     * @param nombre
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "eliminarPizza", targetNamespace = "http://servicios/", className = "PizzaEnLinea.modelo.pizza.EliminarPizza")
+    @ResponseWrapper(localName = "eliminarPizzaResponse", targetNamespace = "http://servicios/", className = "PizzaEnLinea.modelo.pizza.EliminarPizzaResponse")
+    @Action(input = "http://servicios/ServicioPizza/eliminarPizzaRequest", output = "http://servicios/ServicioPizza/eliminarPizzaResponse")
+    public String eliminarPizza(
+        @WebParam(name = "nombre", targetNamespace = "")
+        String nombre);
 
     /**
      * 
@@ -95,20 +110,5 @@ public interface ServicioPizza {
         String precio,
         @WebParam(name = "ingredientes", targetNamespace = "")
         String ingredientes);
-
-    /**
-     * 
-     * @param nombre
-     * @return
-     *     returns java.lang.String
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "eliminarPizza", targetNamespace = "http://servicios/", className = "PizzaEnLinea.modelo.pizza.EliminarPizza")
-    @ResponseWrapper(localName = "eliminarPizzaResponse", targetNamespace = "http://servicios/", className = "PizzaEnLinea.modelo.pizza.EliminarPizzaResponse")
-    @Action(input = "http://servicios/ServicioPizza/eliminarPizzaRequest", output = "http://servicios/ServicioPizza/eliminarPizzaResponse")
-    public String eliminarPizza(
-        @WebParam(name = "nombre", targetNamespace = "")
-        String nombre);
 
 }

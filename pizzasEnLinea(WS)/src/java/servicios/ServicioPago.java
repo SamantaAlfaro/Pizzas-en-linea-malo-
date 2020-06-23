@@ -20,7 +20,7 @@ public class ServicioPago {
     @WebMethod(operationName = "listarMetodosPago")
     public String listarMetodosPago() {
         try {
-            return GestorMetodoPago.getInstance().listarMetodosPago().toString();
+            return GestorMetodoPago.getInstance().listarMetodosPago();
         } catch (NullPointerException | NumberFormatException ex) {
             System.err.printf("Excepción: '%s'%n", ex.getMessage());
         }

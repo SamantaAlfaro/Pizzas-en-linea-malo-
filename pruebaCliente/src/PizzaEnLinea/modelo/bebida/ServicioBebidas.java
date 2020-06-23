@@ -41,18 +41,6 @@ public interface ServicioBebidas {
 
     /**
      * 
-     * @return
-     *     returns java.lang.String
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "listDrinks", targetNamespace = "http://servicios/", className = "PizzaEnLinea.modelo.bebida.ListDrinks")
-    @ResponseWrapper(localName = "listDrinksResponse", targetNamespace = "http://servicios/", className = "PizzaEnLinea.modelo.bebida.ListDrinksResponse")
-    @Action(input = "http://servicios/ServicioBebidas/listDrinksRequest", output = "http://servicios/ServicioBebidas/listDrinksResponse")
-    public String listDrinks();
-
-    /**
-     * 
      * @param precio
      * @param nombre
      * @return
@@ -68,6 +56,18 @@ public interface ServicioBebidas {
         String nombre,
         @WebParam(name = "precio", targetNamespace = "")
         String precio);
+
+    /**
+     * 
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "listDrinks", targetNamespace = "http://servicios/", className = "PizzaEnLinea.modelo.bebida.ListDrinks")
+    @ResponseWrapper(localName = "listDrinksResponse", targetNamespace = "http://servicios/", className = "PizzaEnLinea.modelo.bebida.ListDrinksResponse")
+    @Action(input = "http://servicios/ServicioBebidas/listDrinksRequest", output = "http://servicios/ServicioBebidas/listDrinksResponse")
+    public String listDrinks();
 
     /**
      * 

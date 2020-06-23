@@ -72,7 +72,7 @@ public class ServicioOrden {
     @WebMethod(operationName = "listOrder")
     public String listOrder() {
         try {
-            return GestorOrden.getInstance().listOrder().toString();
+            return GestorOrden.getInstance().listOrder();
         } catch (NullPointerException | NumberFormatException ex) {
             System.err.printf("Excepción: '%s'%n", ex.getMessage());
         }
@@ -88,7 +88,7 @@ public class ServicioOrden {
             System.err.printf("Excepción: '%s'%n", ex.getMessage());
         }
         try {
-            return GestorOrden.getInstance().getOrder(numero).toString();
+            return GestorOrden.getInstance().getOrder(numero);
         } catch (NullPointerException | NumberFormatException ex) {
             System.err.printf("Excepción: '%s'%n", ex.getMessage());
         }

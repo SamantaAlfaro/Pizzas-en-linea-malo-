@@ -26,24 +26,6 @@ public interface ServicioIngredientes {
 
     /**
      * 
-     * @param precio
-     * @param nombre
-     * @return
-     *     returns java.lang.String
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "insertIngredientes", targetNamespace = "http://servicios/", className = "PizzaEnLinea.modelo.ingrediente.InsertIngredientes")
-    @ResponseWrapper(localName = "insertIngredientesResponse", targetNamespace = "http://servicios/", className = "PizzaEnLinea.modelo.ingrediente.InsertIngredientesResponse")
-    @Action(input = "http://servicios/ServicioIngredientes/insertIngredientesRequest", output = "http://servicios/ServicioIngredientes/insertIngredientesResponse")
-    public String insertIngredientes(
-        @WebParam(name = "nombre", targetNamespace = "")
-        String nombre,
-        @WebParam(name = "precio", targetNamespace = "")
-        String precio);
-
-    /**
-     * 
      * @return
      *     returns java.lang.String
      */
@@ -53,21 +35,6 @@ public interface ServicioIngredientes {
     @ResponseWrapper(localName = "listarIngredientesResponse", targetNamespace = "http://servicios/", className = "PizzaEnLinea.modelo.ingrediente.ListarIngredientesResponse")
     @Action(input = "http://servicios/ServicioIngredientes/listarIngredientesRequest", output = "http://servicios/ServicioIngredientes/listarIngredientesResponse")
     public String listarIngredientes();
-
-    /**
-     * 
-     * @param nombre
-     * @return
-     *     returns java.lang.String
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "buscarIngrediente", targetNamespace = "http://servicios/", className = "PizzaEnLinea.modelo.ingrediente.BuscarIngrediente")
-    @ResponseWrapper(localName = "buscarIngredienteResponse", targetNamespace = "http://servicios/", className = "PizzaEnLinea.modelo.ingrediente.BuscarIngredienteResponse")
-    @Action(input = "http://servicios/ServicioIngredientes/buscarIngredienteRequest", output = "http://servicios/ServicioIngredientes/buscarIngredienteResponse")
-    public String buscarIngrediente(
-        @WebParam(name = "nombre", targetNamespace = "")
-        String nombre);
 
     /**
      * 
@@ -102,6 +69,39 @@ public interface ServicioIngredientes {
     @ResponseWrapper(localName = "deleteIngredienteResponse", targetNamespace = "http://servicios/", className = "PizzaEnLinea.modelo.ingrediente.DeleteIngredienteResponse")
     @Action(input = "http://servicios/ServicioIngredientes/deleteIngredienteRequest", output = "http://servicios/ServicioIngredientes/deleteIngredienteResponse")
     public String deleteIngrediente(
+        @WebParam(name = "nombre", targetNamespace = "")
+        String nombre);
+
+    /**
+     * 
+     * @param precio
+     * @param nombre
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "insertIngredientes", targetNamespace = "http://servicios/", className = "PizzaEnLinea.modelo.ingrediente.InsertIngredientes")
+    @ResponseWrapper(localName = "insertIngredientesResponse", targetNamespace = "http://servicios/", className = "PizzaEnLinea.modelo.ingrediente.InsertIngredientesResponse")
+    @Action(input = "http://servicios/ServicioIngredientes/insertIngredientesRequest", output = "http://servicios/ServicioIngredientes/insertIngredientesResponse")
+    public String insertIngredientes(
+        @WebParam(name = "nombre", targetNamespace = "")
+        String nombre,
+        @WebParam(name = "precio", targetNamespace = "")
+        String precio);
+
+    /**
+     * 
+     * @param nombre
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "buscarIngrediente", targetNamespace = "http://servicios/", className = "PizzaEnLinea.modelo.ingrediente.BuscarIngrediente")
+    @ResponseWrapper(localName = "buscarIngredienteResponse", targetNamespace = "http://servicios/", className = "PizzaEnLinea.modelo.ingrediente.BuscarIngredienteResponse")
+    @Action(input = "http://servicios/ServicioIngredientes/buscarIngredienteRequest", output = "http://servicios/ServicioIngredientes/buscarIngredienteResponse")
+    public String buscarIngrediente(
         @WebParam(name = "nombre", targetNamespace = "")
         String nombre);
 

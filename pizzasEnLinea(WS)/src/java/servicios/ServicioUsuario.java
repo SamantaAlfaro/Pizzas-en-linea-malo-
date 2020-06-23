@@ -81,7 +81,7 @@ public class ServicioUsuario {
     @WebMethod(operationName = "listUser")
     public String listUser() {
         try {
-            return GestorUsuarios.getInstance().listUser().toString();
+            return GestorUsuarios.getInstance().listUser();
         } catch (NullPointerException | NumberFormatException ex) {
             System.err.printf("Excepción: '%s'%n", ex.getMessage());
         }
@@ -91,7 +91,7 @@ public class ServicioUsuario {
     @WebMethod(operationName = "getUser")
     public String getUser(@WebParam(name = "cedula") String Pcedula) {
         try {
-            return GestorUsuarios.getInstance().getUser(Pcedula).toString();
+            return GestorUsuarios.getInstance().getUser(Pcedula);
         } catch (NullPointerException | NumberFormatException ex) {
             System.err.printf("Excepción: '%s'%n", ex.getMessage());
         }
