@@ -119,6 +119,6 @@ public class orden implements Serializable {
 
     @Override
     public String toString() {
-        return "orden{" + "cedula=" + cedula + ", nombreCompleto=" + nombreCompleto + ", numOrden=" + numOrden + ", pizzas=" + pizzas.toString() + ", extras=" + extras.toString() + ", fecha=" + fecha + ", estado=" + estado + ", metodo_pago=" + metodo_pago + ", precio=" + precio + "}\n\n";
+        return "{\"cedula\":\"" + cedula + "\",\"nombreCompleto\":\"" + nombreCompleto + "\",\"numOrden\":" + numOrden + ",\"pizzas\":" + pizzas.toString() + ",\"extras\":" + extras.toString() + ",\"fecha\":\"" + fecha + "\",\"estado\":" + estado + ",\"metodo_pago\":\"" + metodo_pago + "\",\"precio\":" + precio + "}";
     }
 }

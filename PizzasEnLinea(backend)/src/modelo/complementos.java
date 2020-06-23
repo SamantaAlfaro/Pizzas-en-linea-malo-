@@ -33,7 +33,7 @@ public class complementos implements Serializable {
 
     @Override
     public String toString() {
-        return "complementos{" + "nombre=" + nombre + ", precio=" + precio + '}';
+        return "{\"nombre\":\"" + nombre + "\",\"precio\":" + precio + "}";
     }  
     
 }
