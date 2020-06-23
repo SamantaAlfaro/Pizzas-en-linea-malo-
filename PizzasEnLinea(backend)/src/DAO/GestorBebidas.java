@@ -87,20 +87,25 @@ public class GestorBebidas implements Serializable{
         return false;
     }
 
-    public List<bebidas> listDrinks() {
+    public String listDrinks() {
         List<Document> drinks = new ArrayList<Document>();
-        List<bebidas> bebidas = new ArrayList<>();
+        List<Document> drink = new ArrayList<Document>();
+        Document bebidas = new Document();
         MongoCollection<Document> collection = db.getCollection("bebidas");
         drinks = collection.find().projection(new Document()).into(new ArrayList<Document>());
         
-        for(Document d : drinks){
-            bebidas.add(new bebidas((String) d.get("nombre"), (double) d.get("precio"))); 
+        for(Document b : drinks){
+            drink.add(new Document().
+                    append("nombre", b.getString("nombre")).
+                    append("precio", b.getDouble("precio")));
         }
         
-        return bebidas;
+        bebidas.append("Lista-Bebidas", drink);
+        
+        return bebidas.toJson();
     }
 
-    public bebidas getDrink(String nom) {
+    public String getDrink(String nom) {
         List<Document> drinks = new ArrayList<Document>();
         bebidas bebidas = new bebidas();
 
@@ -111,17 +116,17 @@ public class GestorBebidas implements Serializable{
             if (d.get("nombre").equals(nom)) {
                 bebidas.setNombre((String)d.get("nombre"));
                 bebidas.setPrecio((double)d.get("precio"));
-                return bebidas;
+                return bebidas.toString();
             }
         }
-        return bebidas;
+        return bebidas.toString();
     }
 //
 //    public static void main(String[] args) {
 //        GestorBebidas prueba = getInstance();
 //////
-//        System.out.println(prueba.listDrinks().toString());
-//        System.out.println(prueba.getDrink("Coca-cola").toString());
+//        System.out.println(prueba.listDrinks());
+//        System.out.println(prueba.getDrink("Coca-cola"));
 ////        System.out.println(prueba.deleteDrink("Coca-cola"));
 ////        bebidas b = new bebidas("zarza", 2000);
 ////        prueba.insertDrink(b);

@@ -5,7 +5,6 @@
  */
 package DAO;
 
-import Utiles.JSONUtils;
 import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
@@ -19,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 import modelo.Ingredientes;
 import org.bson.Document;
-import org.json.JSONObject;
 
 /**
  *
@@ -108,11 +106,9 @@ public class GestorIngredientes implements Serializable {
             MongoCollection<Document> colIngredientes = db.getCollection("ingredientes");
             FindIterable<Document> cursor = colIngredientes.find();
             for (Document d : cursor) {
-//                System.out.println(d.toString());
-//                String nombre =.toString();
-//                double precio = Double.valueOf(d.get("precio").toString());
-//                ing = new Ingredientes(precio, nombre);
-                listaIngredientes.add(new Document().append("nombre",  d.getString("nombre")).append("precio", d.getDouble("precio")));
+                listaIngredientes.add(new Document().
+                        append("nombre",  d.getString("nombre")).
+                        append("precio", d.getDouble("precio")));
             }
         } catch (Exception ex) {
             System.err.printf("Excepción: '%s'%n", ex.getMessage());
@@ -129,21 +125,22 @@ public class GestorIngredientes implements Serializable {
         BasicDBObject filtro = new BasicDBObject();
         filtro.put("nombre", nombre);
         FindIterable<Document> cursor = colProductos.find(filtro);
-        JSONObject ingred = null;
+        Ingredientes i = null;
         for (Document doc : cursor) {
             try {
-                ingred = JSONUtils.Document2JSON(doc);
-                //System.out.print(prod.toString(4));
+                String nombre1 = doc.getString("nombre");
+                double precio1 = doc.getDouble("precio");
+                i = new Ingredientes(precio1, nombre1);
             } catch (Exception ex) {
                 System.err.printf("Excepción: '%s'%n", ex.getMessage());
             }
         }
-        return ingred.toString();
+        return i.toString();
     }
 
 //    public static void main(String[] args) {
 //        GestorIngredientes prueba = getInstance();
-//        System.out.println(prueba.listarIngredientes());
+////        System.out.println(prueba.listarIngredientes());
 //        System.out.println(prueba.buscarIngrediente("piña"));
 //
 ////        Ingredientes b = new Ingredientes(2000,"zarza");
@@ -153,5 +150,8 @@ public class GestorIngredientes implements Serializable {
 ////        System.out.println(prueba.buscarIngrediente("zarza").toString());
 ////        prueba.deleteIngrediente("zarza");
 ////        System.out.println(prueba.buscarIngrediente("zarza").toString());
+
+//{"precio":200,"_id":"5ef02961ba84d47ba5d34972","nombre":"piña"}
+//{"precio":200.0, "nombre":"piña"}
 //    }
 }

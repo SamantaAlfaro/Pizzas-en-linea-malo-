@@ -69,81 +69,64 @@ public class GestorOrden {
         collection.insertOne(Order);
     }
 
-    public ArrayList<orden> listOrder() {
+    
+    public String listOrder() {
         List<Document> Orders = new ArrayList<Document>();
-        ArrayList<orden> ordenes = new ArrayList<>();
-        ArrayList<Pizza> pizza = new ArrayList<>();
-        ArrayList<String> ingredientes = new ArrayList<String>();
-        ArrayList<String> extras = new ArrayList<String>();
+        ArrayList<Document> ordenes = new ArrayList<>();
         MongoCollection<Document> collection = db.getCollection("ordenes");
 
         Orders = collection.find().projection(new Document()).into(new ArrayList<Document>());
         for (Document o : Orders) {
             ArrayList<Document> pizzas = (ArrayList<Document>) o.get("pizzas");
-            for (Document p : pizzas) {
-                pizza.add(new Pizza(p.getString("nombre"), p.getDouble("precio"), ingredientes));
-            }
             ArrayList<Document> extra = (ArrayList<Document>) o.get("extras");
-            for (Document e : extra) {
-                extras.add(e.getString("nombre"));
-            }
-            ordenes.add(new orden(o.getString("ced cliente"),
-                    o.getString("nomb cliente"),
-                    o.getInteger("num orden"),
-                    pizza,
-                    extras,
-                    o.getDate("fecha"),
-                    o.getInteger("estado"),
-                    o.getString("metodo pago"),
-                    o.getDouble("precio")));
+
+            ordenes.add(new Document().append("ced cliente",o.getString("ced cliente")).
+                        append("nomb cliente", o.getString("nomb cliente")).
+                        append("num orden", o.getInteger("num orden")).
+                        append("fecha", o.getDate("fecha").toString()).
+                        append("pizzas", pizzas).append("extras", extra).
+                        append("estado", o.getInteger("estado")).
+                        append("metodo pago", o.getString("metodo pago")).
+                        append("precio", o.getDouble("precio")));
         }
-        return ordenes;
+        
+        Document lista = new Document("Lista-Ordenes", ordenes);
+        return lista.toJson();
     }
 
-    public orden getOrder(int num) {
+    public String getOrder(int num) {
         List<Document> orders = new ArrayList<Document>();
-        orden order = new orden();
-
-        ArrayList<Pizza> pizza = new ArrayList<>();
-        ArrayList<String> ingredientes = new ArrayList<String>();
-        ArrayList<String> extras = new ArrayList<String>();
+        Document order = new Document();
 
         MongoCollection<Document> collection = db.getCollection("ordenes");
         orders = collection.find().projection(new Document()).into(new ArrayList<Document>());
 
         for (Document d : orders) {
             if (d.get("num orden").equals(num)) {
-                order.setCedula(d.getString("ced cliente"));
-                order.setNombreCompleto(d.getString("nomb cliente"));
-                order.setNumOrden(d.getInteger("num orden"));
-                order.setFecha(d.getDate("fecha"));
-
+                order.append("ced cliente",d.getString("ced cliente")).
+                        append("nomb cliente", d.getString("nomb cliente")).
+                        append("num orden", d.getInteger("num orden")).
+                        append("fecha", d.getDate("fecha").toString());
+                
                 ArrayList<Document> pizzas = (ArrayList<Document>) d.get("pizzas");
-                for (Document p : pizzas) {
-                    pizza.add(new Pizza(p.getString("nombre"), p.getDouble("precio"), ingredientes));
-                }
-                order.setPizzas(pizza);
+                order.append("pizzas", pizzas);
 
                 ArrayList<Document> extra = (ArrayList<Document>) d.get("extras");
-                for (Document e : extra) {
-                    extras.add(e.getString("nombre"));
-                }
-                order.setExtras(extras);
+                order.append("extras", extra);
+                order.append("estado", d.getInteger("estado")).
+                        append("metodo pago", d.getString("metodo pago")).
+                        append("precio", d.getDouble("precio"));
 
-                order.setEstado(d.getInteger("estado"));
-                order.setMetodo_pago(d.getString("metodo pago"));
-                order.setPrecio(d.getDouble("precio"));
-
-                return order;
+                return order.toJson();
             }
         }
-        return order;
+        return order.toJson();
     }
 
     public void updateEstado(int num, int estado) {
         MongoCollection<Document> collection = db.getCollection("ordenes");
         BasicDBObject query = new BasicDBObject();
-        query.put("num orden", getOrder(num).getNumOrden());
+        query.put("num orden", num);
 
         BasicDBObject newDocument = new BasicDBObject();
         newDocument.put("estado", estado);
@@ -171,26 +154,26 @@ public class GestorOrden {
 
 //    public static void main(String[] args) {
 //        GestorOrden prueba = getInstance();
-//        GestorPizzas pizza = GestorPizzas.getInstance();
-//        GestorBebidas extra = GestorBebidas.getInstance();
-//        ArrayList<Pizza> pizzas = new ArrayList<Pizza>();
-//        ArrayList<String> extras = new ArrayList<String>();
-//
-//        pizzas.add(pizza.buscarPizza("Suprema"));
-////        pizzas.add(pizza.buscarPizza("Napolitana"));
-//
-//        System.out.println(pizzas.toString());
-//
-//        extras.add(extra.getDrink("Coca-cola").getNombre());
+////        GestorPizzas pizza = GestorPizzas.getInstance();
+////        GestorBebidas extra = GestorBebidas.getInstance();
+////        ArrayList<Pizza> pizzas = new ArrayList<Pizza>();
+////        ArrayList<String> extras = new ArrayList<String>();
 ////
-//        System.out.println(extras.toString());
-//        orden u = new orden("304950273", "Leonardo Baldares Gómez", 0, pizzas, extras, new Date(), 0, "contado", 20000);
-//        prueba.insertOrder(u);
-//        orden u2 = new orden("111111111", "Leonardo", 0, pizzas, extras, new Date(), 0, "contado", 20000);
-//        prueba.insertOrder(u2);
-//        System.out.println(prueba.listOrder().toString());
-////        System.out.println(prueba.getOrder(1).toString());
-////        prueba.updateEstado(1, 3);
-////        System.out.println(prueba.getOrder(1).toString());
+////        pizzas.add(pizza.buscarPizza("Suprema"));
+//////        pizzas.add(pizza.buscarPizza("Napolitana"));
+////
+////        System.out.println(pizzas.toString());
+////
+////        extras.add(extra.getDrink("Coca-cola").getNombre());
+//////
+////        System.out.println(extras.toString());
+////        orden u = new orden("304950273", "Leonardo Baldares Gómez", 0, pizzas, extras, new Date(), 0, "contado", 20000);
+////        prueba.insertOrder(u);
+////        orden u2 = new orden("111111111", "Leonardo", 0, pizzas, extras, new Date(), 0, "contado", 20000);
+////        prueba.insertOrder(u2);
+//        System.out.println(prueba.listOrder());
+////        System.out.println(prueba.getOrder(1));
+//////        prueba.updateEstado(1, 3);
+//////        System.out.println(prueba.getOrder(1).toString());
 //    }
 }

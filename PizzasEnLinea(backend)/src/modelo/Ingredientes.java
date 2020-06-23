@@ -11,7 +11,8 @@ import java.io.Serializable;
  *
  * @author Samanta
  */
-public class Ingredientes implements Serializable{
+public class Ingredientes implements Serializable {
+
     private double precio;
     private String nombre;
 
@@ -42,7 +43,7 @@ public class Ingredientes implements Serializable{
 
     @Override
     public String toString() {
-        return "{\"precio\":" + precio + ", \"nombre\":\"" + nombre + "\"}";
-    }   
-    
+        return "{\"nombre\":\"" + nombre + "\",\"precio\":" + precio + "}";
+    }
+
 }
