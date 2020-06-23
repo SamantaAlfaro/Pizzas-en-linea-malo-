@@ -49,26 +49,27 @@ public class GestorMetodoPago implements Serializable {
     }
 
     //listar los metodos de pago actuales actuales
-    public List<String> listarMetodosPago() {
-        List<String> metodosPago = new ArrayList<>();
+    public String listarMetodosPago() {
+        
+        List<Document> metodosPago = new ArrayList<>();
         try {
             MongoCollection<Document> colMetodos= db.getCollection("metodosPago");
             FindIterable<Document> cursor = colMetodos.find();
             for (Document d: cursor){
                 System.out.println(d.toString());
                 String nombre = d.get("nombre").toString();
-                metodosPago.add(nombre);
+                metodosPago.add(new Document().append("nombre", nombre));
             }
         } catch (Exception ex) {
             System.err.printf("Excepción: '%s'%n", ex.getMessage());
         }
-        return metodosPago;
+        return new Document().append("lista-metodosPago", metodosPago).toJson();
     }
     
     
-//    public static void main(String[] args) {
-//        GestorMetodoPago gMP = GestorMetodoPago.getInstance();
-//        System.out.println(gMP.listarMetodosPago());
-//    }
+    public static void main(String[] args) {
+        GestorMetodoPago gMP = GestorMetodoPago.getInstance();
+        System.out.println(gMP.listarMetodosPago());
+    }
 
 }

@@ -55,28 +55,28 @@ public class GestorUsuarios implements Serializable {
         collection.insertOne(User);
     }
 
-    public ArrayList<Usuario> listUser() {
+    public String listUser() {
+        Document doc = new Document();
         List<Document> users = new ArrayList<Document>();
-        ArrayList<Usuario> usuarios = new ArrayList<>();
+        ArrayList<Document> usuarios = new ArrayList<>();
         MongoCollection<Document> collection = db.getCollection("usuarios");
 
         users = collection.find().projection(new Document()).into(new ArrayList<Document>());
         for (Document d : users) {
-            usuarios.add(new Usuario(
-                    d.getString("nombre"), 
-                    d.getString("apellidos"),
-                    d.getString("cedula"),
-                    d.getString("direccion"),
-                    d.getString("contraseña"),
-                    d.getString("telefono"),
-                    d.getBoolean("rol")
-            ));
+            usuarios.add(new Document().append("nombre", d.getString("nombre"))
+                    .append("apellidos", d.getString("apellidos"))
+                    .append("cedula", d.getString("cedula"))
+                    .append("direccion", d.getString("direccion"))
+                    .append("contraseña", d.getString("contraseña"))
+                    .append("telefono", d.getString("telefono"))
+                    .append("rol", d.getBoolean("rol"))
+            );
         }
-
-        return usuarios;
+        doc.append("lista-usuarios", usuarios);
+        return doc.toJson();
     }
 
-    public Usuario getUser(String ced) {
+    public String getUser(String ced) {
         List<Document> users = new ArrayList<Document>();
         Usuario user = new Usuario();
 
@@ -85,23 +85,23 @@ public class GestorUsuarios implements Serializable {
 
         for (Document d : users) {
             if (d.get("cedula").equals(ced)) {
-                    user.setNombre(d.getString("nombre")); 
-                    user.setApellidos(d.getString("apellidos"));
-                    user.setCedula(d.getString("cedula"));
-                    user.setDireccion(d.getString("direccion"));
-                    user.setContraseña(d.getString("contraseña"));
-                    user.setTelefono(d.getString("telefono"));
-                    user.setRol(d.getBoolean("rol"));
-                return user;
+                user.setNombre(d.getString("nombre"));
+                user.setApellidos(d.getString("apellidos"));
+                user.setCedula(d.getString("cedula"));
+                user.setDireccion(d.getString("direccion"));
+                user.setContraseña(d.getString("contraseña"));
+                user.setTelefono(d.getString("telefono"));
+                user.setRol(d.getBoolean("rol"));
+                return user.toString();
             }
         }
-        return user;
+        return user.toString();
     }
 
     public void updateUser(String cedula, String direccion, String telefono) {
         MongoCollection<Document> collection = db.getCollection("usuarios");
         BasicDBObject query = new BasicDBObject();
-        query.put("cedula", getUser(cedula).getCedula());
+        query.put("cedula", cedula);
 
         BasicDBObject newDocument = new BasicDBObject();
         newDocument.put("direccion", direccion);
@@ -115,7 +115,7 @@ public class GestorUsuarios implements Serializable {
     public void updatePassword(String cedula, String newPass) {
         MongoCollection<Document> collection = db.getCollection("usuarios");
         BasicDBObject query = new BasicDBObject();
-        query.put("cedula", getUser(cedula).getCedula());
+        query.put("cedula", cedula);
 
         BasicDBObject newDocument = new BasicDBObject();
         newDocument.put("contraseña", newPass);
@@ -133,8 +133,8 @@ public class GestorUsuarios implements Serializable {
 //        Usuario u = new Usuario("Leonardo", "Baldares Gómez", "304950273", "Cartago", "123", "86575093", true);
 //        prueba.insertUser(u);
 //////        
-//        System.out.println(prueba.listUser().toString());
-//        System.out.println(prueba.getUser("105710421").toString());
+//        System.out.println(prueba.listUser());
+//        System.out.println(prueba.getUser("304950273"));
 //        prueba.updateUser("304950273", "Heredia", "11111111");
 //        prueba.updatePassword("304950273", "leo123");
 //    }

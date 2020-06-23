@@ -74,10 +74,12 @@ public class GestorPizzas implements Serializable {
     }
 
     //listar todas las pizzas disponibles
-    public List<Pizza> listarPizzas() {
+    public String listarPizzas() {
         MongoCollection<Document> colProductos = db.getCollection("pizzas");
         FindIterable<Document> cursor = colProductos.find();
-        List<Pizza> listaPizzas = new ArrayList<>();
+        Document listaPizzas = new Document();
+        List<Document> lista = new ArrayList<>();
+        
         ArrayList<String> ingred = null;
         String nomPizza = null;
         double precio = 0.0;
@@ -94,17 +96,18 @@ public class GestorPizzas implements Serializable {
                     ingred.add(obj.get("nombre").toString());
                 }
                 //System.out.println(ingred.toString());
-                Pizza pizza = new Pizza(nomPizza, precio, ingred);
-                listaPizzas.add(pizza);
+                //Pizza pizza = new Pizza(nomPizza, precio, ingred);
+                lista.add(new Document().append("nombre", nomPizza).append("precio", precio).append("ingredientes", ingredAux));
             }
+            listaPizzas.append("lista-pizzas", lista);
         } catch (Exception ex) {
             System.err.printf("Excepción: '%s'%n", ex.getMessage());
         }
-        return listaPizzas;
+        return listaPizzas.toJson();
     }
 
     //buscar una pizza
-    public Pizza buscarPizza(String nombre) {
+    public String buscarPizza(String nombre) {
         MongoCollection<Document> colPizzas = db.getCollection("pizzas");
         BasicDBObject filtro = new BasicDBObject();
         filtro.put("nombre", nombre);
@@ -120,7 +123,7 @@ public class GestorPizzas implements Serializable {
             Double Precio = r.getDouble("precioBase");
             pizza = new Pizza(Nombre, Precio, ingrePizza);
         }
-        return pizza;
+        return pizza.toString();
     }
 
     //eliminar una pizza
@@ -160,9 +163,9 @@ public class GestorPizzas implements Serializable {
         }
     }
 
-//    public static void main(String[] args) {
-//        GestorPizzas gP = GestorPizzas.getInstance();
-//        System.out.println(gP.listarPizzas());
+    public static void main(String[] args) {
+        GestorPizzas gP = GestorPizzas.getInstance();
+        System.out.println(gP.listarPizzas());
 //        ArrayList<String> ingredientes = new ArrayList<>();
 //        ingredientes.add("ajo");
 //        ingredientes.add("queso");
@@ -172,6 +175,6 @@ public class GestorPizzas implements Serializable {
 //       System.out.println(gP.eliminarPizza("Cheese"));
 //        System.out.println(gP.buscarPizza("Napolitana"));
 //
-//    }
+    }
 
 }

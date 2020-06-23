@@ -53,9 +53,10 @@ public class Pizza implements Serializable{
 
     @Override
     public String toString() {
-        return "{" + "nombre=" + nombre + ", precio=" + precio + ", ingredientes=" + ingredientes.toString() + "}\n";
+        return "{\"nombre\":" + nombre + ",\"precio\":" + precio + ",\"ingredientes\":" + ingredientes.toString() + "}\n";
     }
     
+
     
     
 }
