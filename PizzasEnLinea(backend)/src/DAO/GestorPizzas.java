@@ -99,7 +99,7 @@ public class GestorPizzas implements Serializable {
                 //Pizza pizza = new Pizza(nomPizza, precio, ingred);
                 lista.add(new Document().append("nombre", nomPizza).append("precio", precio).append("ingredientes", ingredAux));
             }
-            listaPizzas.append("lista-pizzas", lista);
+            listaPizzas.append("lista_pizzas", lista);
         } catch (Exception ex) {
             System.err.printf("Excepción: '%s'%n", ex.getMessage());
         }

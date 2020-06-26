@@ -72,7 +72,7 @@ public class GestorUsuarios implements Serializable {
                     .append("rol", d.getBoolean("rol"))
             );
         }
-        doc.append("lista-usuarios", usuarios);
+        doc.append("lista_usuarios", usuarios);
         return doc.toJson();
     }
 

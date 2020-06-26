@@ -33,7 +33,11 @@ public class PruebaCliente {
         ServicioBebidas_Service sb = new ServicioBebidas_Service();
         ServicioBebidas b = sb.getServicioBebidasPort();
         
-        System.out.println(b.listDrinks() + "\n\n\n");
+//        System.out.println(b.listDrinks() + "\n\n\n");
+//        System.out.println(b.insertDrink("GIN", "2000")+ "\n\n\n");
+//        System.out.println(b.listDrinks() + "\n\n\n");
+//        System.out.println(b.deleteDrink("GIN") + "\n\n\n");
+        
         
         ServicioComplemento_Service sc = new ServicioComplemento_Service();
         ServicioComplemento c = sc.getServicioComplementoPort();

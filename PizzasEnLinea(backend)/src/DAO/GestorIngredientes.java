@@ -114,7 +114,7 @@ public class GestorIngredientes implements Serializable {
             System.err.printf("Excepción: '%s'%n", ex.getMessage());
         }
         
-        Ingredientes.append("Lista-Ingredientes", listaIngredientes);
+        Ingredientes.append("Lista_Ingredientes", listaIngredientes);
         return Ingredientes.toJson();
     }
 

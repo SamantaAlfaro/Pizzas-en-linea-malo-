@@ -63,7 +63,7 @@ public class GestorMetodoPago implements Serializable {
         } catch (Exception ex) {
             System.err.printf("Excepción: '%s'%n", ex.getMessage());
         }
-        return new Document().append("lista-metodosPago", metodosPago).toJson();
+        return new Document().append("lista_metodosPago", metodosPago).toJson();
     }
     
     

@@ -90,7 +90,7 @@ public class GestorOrden {
                         append("precio", o.getDouble("precio")));
         }
         
-        Document lista = new Document("Lista-Ordenes", ordenes);
+        Document lista = new Document("Lista_Ordenes", ordenes);
         return lista.toJson();
     }
 

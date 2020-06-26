@@ -100,7 +100,7 @@ public class GestorBebidas implements Serializable{
                     append("precio", b.getDouble("precio")));
         }
         
-        bebidas.append("Lista-Bebidas", drink);
+        bebidas.append("Lista_Bebidas", drink);
         
         return bebidas.toJson();
     }

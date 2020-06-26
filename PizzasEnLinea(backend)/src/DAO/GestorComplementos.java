@@ -65,7 +65,7 @@ public class GestorComplementos {
             complementos.add(new Document((String) d.get("nombre"), (double) d.get("precio")));
         }
 
-        Document lista = new Document("Lista-Complementos",complementos);
+        Document lista = new Document("Lista_Complementos",complementos);
         return lista.toJson();
     }
 
